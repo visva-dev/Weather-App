@@ -20,6 +20,7 @@
   "homepage": "https://github.com/visva-dev/Weather-App#readme",
   "devDependencies": {
     "css-loader": "^5.0.1",
+    "dotenv-webpack": "^6.0.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.10.0",
     "webpack-cli": "^4.2.0"
