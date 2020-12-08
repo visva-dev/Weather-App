@@ -26,7 +26,8 @@ window.addEventListener('load', () => {
           console.log(data);
           const { temp } = data.main;
           let celsius = (temp * 32) / (5 + 32);
-          degree.textContent = temp;
+          let fahrenheit = ((temp - 32) * 5 / 9);
+          degree.textContent = Math.floor(temp - 244);
           temperatureDescription.textContent = data.weather[0].description;
           timeZone.textContent = data.sys.country;
           locationName.textContent = data.name;
@@ -37,7 +38,7 @@ window.addEventListener('load', () => {
               degree.textContent = Math.floor(celsius - 236);
             } else {
               temperatureSpan.textContent = 'F';
-              degree.textContent = temp;
+              degree.textContent = Math.floor(fahrenheit - 106);
             }
           });
         });
