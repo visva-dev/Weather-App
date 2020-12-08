@@ -9,14 +9,14 @@ window.addEventListener('load', () => {
   let temperatureSpan = document.querySelector('.temperature-section span');
   let timeZone = document.querySelector('.location-timezone');
   let locationName = document.querySelector('.location-name');
+  let icon = document.getElementById('image');
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
       lon = position.coords.longitude;
       lat = position.coords.latitude;
 
-      const proxy = 'https://';
-      const api = `${proxy}api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.API}`;
+      const api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.API}`;
 
       fetch(api)
         .then((response) => {
@@ -30,10 +30,11 @@ window.addEventListener('load', () => {
           temperatureDescription.textContent = data.weather[0].description;
           timeZone.textContent = data.sys.country;
           locationName.textContent = data.name;
+          icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
           temperature.addEventListener('click', () => {
             if (temperatureSpan.textContent === 'F') {
               temperatureSpan.textContent = 'C';
-              degree.textContent = Math.floor((celsius)- 236);
+              degree.textContent = Math.floor(celsius - 236);
             } else {
               temperatureSpan.textContent = 'F';
               degree.textContent = temp;
