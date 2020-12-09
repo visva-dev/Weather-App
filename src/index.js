@@ -88,8 +88,7 @@ function displayResults(weather) {
 
 function getResults(query) {
   fetch(`${url.base}weather?q=${query}&units=metric&APPID=${process.env.API}`)
-    .then((weather) => { return weather.json(); })
-    .then(displayResults);
+    .then((weather) => { weather.json().then(displayResults); });
 }
 
 const searchbox = document.querySelector('.search-box');
