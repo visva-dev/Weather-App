@@ -84,6 +84,16 @@ function displayResults(weather) {
   hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(
     weather.main.temp_max,
   )}°c`;
+
+  const current = document.querySelector('.current')
+  const tempSpan = document.querySelector("span")
+  current.addEventListener('click', () => {
+    if (tempSpan.textContent === '°f') {
+      tempSpan.textContent = '°c'
+    } else {
+      tempSpan.textContent = '°f';
+    }
+  })
 }
 
 function getResults(query) {
