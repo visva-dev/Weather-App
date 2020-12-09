@@ -28,15 +28,15 @@ header {
 
 header input {
   width: 100%;
-  max-width: 280px;
-  padding: 10px 15px;
+  max-width: 400px;
+  padding: 15px 20px;
   border: none;
   outline: none;
-  background-color: rgba(117, 112, 112, 0.3);
-  border-radius: 16px 0 16px 0;
-  border-bottom: 3px solid #df8e00;
-  color: #918b8b;
-  font-size: 20px;
+  background-color: rgba(202, 205, 214, 0.3);
+  border-radius: 10px 0 10px 0;
+  border-bottom: 3px solid #149434;
+  color: #0a0a0a;
+  font-size: 23px;
   font-weight: 300;
   transition: 0.2s ease-in-out;
 }

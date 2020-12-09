@@ -4,15 +4,6 @@ const url = {
   base: 'https://api.openweathermap.org/data/2.5/',
 };
 
-const searchbox = document.querySelector('.search-box');
-searchbox.addEventListener('keypress', setQuery);
-
-function setQuery(evt) {
-  if (evt.keyCode == 13) {
-    getResults(searchbox.value);
-  }
-}
-
 function getResults(query) {
   fetch(`${url.base}weather?q=${query}&units=metric&APPID=${process.env.API}`)
     .then((weather) => {
@@ -20,6 +11,15 @@ function getResults(query) {
     })
     .then(displayResults);
 }
+
+function setQuery(evt) {
+  if (evt.keyCode === 13) {
+    getResults(searchbox.value);
+  }
+}
+
+const searchbox = document.querySelector('.search-box');
+searchbox.addEventListener('keypress', setQuery);
 
 function displayResults(weather) {
   switch (weather.weather[0].main) {
@@ -46,30 +46,30 @@ function displayResults(weather) {
       break;
   }
 
-  let city = document.querySelector('.location .city');
+  const city = document.querySelector('.location .city');
   city.innerText = `${weather.name}, ${weather.sys.country}`;
 
-  let now = new Date();
-  let date = document.querySelector('.location .date');
+  const now = new Date();
+  const date = document.querySelector('.location .date');
   date.innerText = dateBuilder(now);
 
-  let temp = document.querySelector('.current .temp');
+  const temp = document.querySelector('.current .temp');
   temp.innerHTML = `${Math.round(weather.main.temp)}<span>°c</span>`;
 
-  let icon = document.getElementById('image');
+  const icon = document.getElementById('image');
   icon.src = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`;
 
-  let weather_el = document.querySelector('.current .weather');
+  const weather_el = document.querySelector('.current .weather');
   weather_el.innerText = weather.weather[0].main;
 
-  let hilow = document.querySelector('.hi-low');
+  const hilow = document.querySelector('.hi-low');
   hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(
     weather.main.temp_max
   )}°c`;
 }
 
 function dateBuilder(d) {
-  let months = [
+  const months = [
     'January',
     'February',
     'March',
@@ -83,7 +83,7 @@ function dateBuilder(d) {
     'November',
     'December',
   ];
-  let days = [
+  const days = [
     'Sunday',
     'Monday',
     'Tuesday',
@@ -93,10 +93,10 @@ function dateBuilder(d) {
     'Saturday',
   ];
 
-  let day = days[d.getDay()];
-  let date = d.getDate();
-  let month = months[d.getMonth()];
-  let year = d.getFullYear();
+  const day = days[d.getDay()];
+  const date = d.getDate();
+  const month = months[d.getMonth()];
+  const year = d.getFullYear();
 
   return `${day} ${date} ${month} ${year}`;
 }

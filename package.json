@@ -19,8 +19,12 @@
   },
   "homepage": "https://github.com/visva-dev/Weather-App#readme",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "css-loader": "^5.0.1",
     "dotenv-webpack": "^6.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "file-loader": "^6.2.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.10.0",
