@@ -1,49 +1,75 @@
 import './style.css';
 
-window.addEventListener('load', () => {
-  let lon;
-  let lat;
-  let temperatureDescription = document.querySelector('.temperature-dsc');
-  let degree = document.querySelector('.degree');
-  let temperature = document.querySelector('.temperature-section');
-  let temperatureSpan = document.querySelector('.temperature-section span');
-  let timeZone = document.querySelector('.location-timezone');
-  let locationName = document.querySelector('.location-name');
-  let icon = document.getElementById('image');
+const url = {
+  base: 'https://api.openweathermap.org/data/2.5/',
+};
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      lon = position.coords.longitude;
-      lat = position.coords.latitude;
+const searchbox = document.querySelector('.search-box');
+searchbox.addEventListener('keypress', setQuery);
 
-      const api = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.API}`;
-
-      fetch(api)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-          const { temp } = data.main;
-          let celsius = (temp * 32) / (5 + 32);
-          let fahrenheit = ((temp - 32) * 5 / 9);
-          degree.textContent = Math.floor(temp - 244);
-          temperatureDescription.textContent = data.weather[0].description;
-          timeZone.textContent = data.sys.country;
-          locationName.textContent = data.name;
-          icon.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
-          temperature.addEventListener('click', () => {
-            if (temperatureSpan.textContent === 'F') {
-              temperatureSpan.textContent = 'C';
-              degree.textContent = Math.floor(celsius - 236);
-            } else {
-              temperatureSpan.textContent = 'F';
-              degree.textContent = Math.floor(fahrenheit - 106);
-            }
-          });
-        });
-    });
-  } else {
-    h1.textContent = 'Please anable location sharing to see a temperature.';
+function setQuery(evt) {
+  if (evt.keyCode == 13) {
+    getResults(searchbox.value);
   }
-});
+}
+
+function getResults(query) {
+  fetch(`${url.base}weather?q=${query}&units=metric&APPID=${process.env.API}`)
+    .then((weather) => {
+      return weather.json();
+    })
+    .then(displayResults);
+}
+
+function displayResults(weather) {
+  let city = document.querySelector('.location .city');
+  city.innerText = `${weather.name}, ${weather.sys.country}`;
+
+  let now = new Date();
+  let date = document.querySelector('.location .date');
+  date.innerText = dateBuilder(now);
+
+  let temp = document.querySelector('.current .temp');
+  temp.innerHTML = `${Math.round(weather.main.temp)}<span>°c</span>`;
+
+  let weather_el = document.querySelector('.current .weather');
+  weather_el.innerText = weather.weather[0].main;
+
+  let hilow = document.querySelector('.hi-low');
+  hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(
+    weather.main.temp_max
+  )}°c`;
+}
+
+function dateBuilder(d) {
+  let months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  let days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+
+  let day = days[d.getDay()];
+  let date = d.getDate();
+  let month = months[d.getMonth()];
+  let year = d.getFullYear();
+
+  return `${day} ${date} ${month} ${year}`;
+}
