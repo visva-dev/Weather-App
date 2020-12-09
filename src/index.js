@@ -22,6 +22,30 @@ function getResults(query) {
 }
 
 function displayResults(weather) {
+  switch (weather.weather[0].main) {
+    case 'Clear':
+      document.body.style.backgroundImage = 'url("clear.jpg")';
+      break;
+    case 'Clouds':
+      document.body.style.backgroundImage = 'url("cloudy.jpg")';
+      break;
+    case 'Rain':
+      document.body.style.backgroundImage = 'url("rain.jpg")';
+    case 'Drizzle':
+      document.body.style.backgroundImage = 'url("drizzle.jpg")';
+    case 'Mist':
+      document.body.style.backgroundImage = 'url("mist.jpg")';
+      break;
+    case 'Thunderstorm':
+      document.body.style.backgroundImage = 'url("thunderstorm.jpg")';
+      break;
+    case 'Snow':
+      document.body.style.backgroundImage = 'url("snow.jpg")';
+      break;
+    default:
+      break;
+  }
+
   let city = document.querySelector('.location .city');
   city.innerText = `${weather.name}, ${weather.sys.country}`;
 
