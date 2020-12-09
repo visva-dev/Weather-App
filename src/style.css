@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background: linear-gradient(rgb(201, 212, 40), rgb(44, 70, 214));
+  background-image: url('./img1.jpg');
   background-size: cover;
   background-position: top center;
 }
