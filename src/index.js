@@ -32,6 +32,9 @@ function displayResults(weather) {
   let temp = document.querySelector('.current .temp');
   temp.innerHTML = `${Math.round(weather.main.temp)}<span>°c</span>`;
 
+  let icon = document.getElementById('image');
+  icon.src = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`;
+
   let weather_el = document.querySelector('.current .weather');
   weather_el.innerText = weather.weather[0].main;
 
