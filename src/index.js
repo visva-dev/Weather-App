@@ -4,23 +4,6 @@ const url = {
   base: 'https://api.openweathermap.org/data/2.5/',
 };
 
-function getResults(query) {
-  fetch(`${url.base}weather?q=${query}&units=metric&APPID=${process.env.API}`)
-    .then((weather) => {
-      return weather.json();
-    })
-    .then(displayResults);
-}
-
-function setQuery(evt) {
-  if (evt.keyCode === 13) {
-    getResults(searchbox.value);
-  }
-}
-
-const searchbox = document.querySelector('.search-box');
-searchbox.addEventListener('keypress', setQuery);
-
 function displayResults(weather) {
   switch (weather.weather[0].main) {
     case 'Clear':
@@ -31,8 +14,10 @@ function displayResults(weather) {
       break;
     case 'Rain':
       document.body.style.backgroundImage = 'url("rain.jpg")';
+      break;
     case 'Drizzle':
       document.body.style.backgroundImage = 'url("drizzle.jpg")';
+      break;
     case 'Mist':
       document.body.style.backgroundImage = 'url("mist.jpg")';
       break;
@@ -49,6 +34,39 @@ function displayResults(weather) {
   const city = document.querySelector('.location .city');
   city.innerText = `${weather.name}, ${weather.sys.country}`;
 
+  function dateBuilder(d) {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+
+    const day = days[d.getDay()];
+    const date = d.getDate();
+    const month = months[d.getMonth()];
+    const year = d.getFullYear();
+
+    return `${day} ${date} ${month} ${year}`;
+  }
+
   const now = new Date();
   const date = document.querySelector('.location .date');
   date.innerText = dateBuilder(now);
@@ -59,44 +77,27 @@ function displayResults(weather) {
   const icon = document.getElementById('image');
   icon.src = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`;
 
-  const weather_el = document.querySelector('.current .weather');
-  weather_el.innerText = weather.weather[0].main;
+  const weatherEl = document.querySelector('.current .weather');
+  weatherEl.innerText = weather.weather[0].main;
 
   const hilow = document.querySelector('.hi-low');
   hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(
-    weather.main.temp_max
+    weather.main.temp_max,
   )}°c`;
 }
 
-function dateBuilder(d) {
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const days = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
-
-  const day = days[d.getDay()];
-  const date = d.getDate();
-  const month = months[d.getMonth()];
-  const year = d.getFullYear();
-
-  return `${day} ${date} ${month} ${year}`;
+function getResults(query) {
+  fetch(`${url.base}weather?q=${query}&units=metric&APPID=${process.env.API}`)
+    .then((weather) => { return weather.json(); })
+    .then(displayResults);
 }
+
+const searchbox = document.querySelector('.search-box');
+
+function setQuery(evt) {
+  if (evt.keyCode === 13) {
+    getResults(searchbox.value);
+  }
+}
+
+searchbox.addEventListener('keypress', setQuery);
