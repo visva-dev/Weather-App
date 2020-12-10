@@ -73,6 +73,7 @@ function displayResults(weather) {
 
   const temp = document.querySelector('.current .temp');
   temp.innerHTML = `${Math.round(weather.main.temp)}<span>°c</span>`;
+  const temperature = Math.round(weather.main.temp)
 
   const icon = document.getElementById('image');
   icon.src = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`;
@@ -90,8 +91,10 @@ function displayResults(weather) {
   current.addEventListener('click', () => {
     if (tempSpan.textContent === '°f') {
       tempSpan.textContent = '°c'
+      temp.innerHTML = `${Math.round(temperature)}<span>°c</span>`;
     } else {
       tempSpan.textContent = '°f';
+      temp.innerHTML = `${(Math.round((temperature - 32) * 5 / 9))}<span>°f</span>`;
     }
   })
 }
