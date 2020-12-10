@@ -1,4 +1,4 @@
-function dateBuilder(d) {
+const dateBuilder = d => {
   const months = [
     'January',
     'February',
@@ -29,6 +29,6 @@ function dateBuilder(d) {
   const year = d.getFullYear();
 
   return `${day} ${date} ${month} ${year}`;
-}
+};
 
 export default dateBuilder;

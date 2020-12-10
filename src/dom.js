@@ -43,7 +43,7 @@ function displayResults(weather) {
   weatherEl.innerText = weather.weather[0].main;
 
   hilow.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(
-    weather.main.temp_max
+    weather.main.temp_max,
   )}°c`;
 
   current.addEventListener('click', () => {
@@ -53,7 +53,7 @@ function displayResults(weather) {
     } else {
       tempSpan.textContent = '°f';
       temp.innerHTML = `${Math.round(
-        ((temperature - 32) * 5) / 9
+        ((temperature - 32) * 5) / 9,
       )}<span>°f</span>`;
     }
   });

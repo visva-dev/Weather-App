@@ -1,6 +1,6 @@
 import './style.css';
 import displayResults from './dom';
-import dateBuilder from './date'
+import dateBuilder from './date';
 
 const url = {
   base: 'https://api.openweathermap.org/data/2.5/',
@@ -13,7 +13,7 @@ date.innerText = dateBuilder(now);
 
 function getResults(query) {
   fetch(
-    `${url.base}weather?q=${query}&units=metric&APPID=${process.env.API}`
+    `${url.base}weather?q=${query}&units=metric&APPID=${process.env.API}`,
   ).then((weather) => {
     weather.json().then(displayResults);
   });
