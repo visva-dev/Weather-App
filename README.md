@@ -8,7 +8,7 @@ Microverse project - Weather App
 
 ## Live Demo Website
 
-Click the following https://bit.ly/3mZQyMd to see a live version of the site.
+Click the following https://bit.ly/37QuZr9 to see a live version of the site.
 
 
 ![screenshot](./1image.jpg)<br>
